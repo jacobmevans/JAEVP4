@@ -66,7 +66,9 @@ public class JAEVP4 {
 		        for (int v=0; v < connectedNodes.length; v++) {
 		            System.out.print(connectedNodes[v].ID);
 		            for (edge nbr=connectedNodes[v].connectedTo; nbr != null;nbr=nbr.next) {
-		                System.out.print(" --> " + connectedNodes[nbr.vertexID -1].ID);
+		            	 System.out.println("\n");
+		                System.out.print(" ----> " + connectedNodes[nbr.vertexID -1].ID);
+		                System.out.print("(" + nbr.weight + ")");
 		            }
 		            System.out.println("\n");
 		        }
@@ -80,7 +82,7 @@ public class JAEVP4 {
 	public static void main(String[] args) throws IOException{
 	
 		graph graph = null;
-		int index = 0;
+	
 		//Scanner sc = new Scanner(System.in);
 		String line = "";
 		
