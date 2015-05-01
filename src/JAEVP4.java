@@ -1,34 +1,50 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class JAEVP4 {
 
-	static class vertex{
+	static class Vertex implements Comparable<Vertex>{
 		
 		int ID;
-		edge connectedTo;
+		ArrayList<edge> connections = new ArrayList();
+		int distance;
+		Vertex previous;
 		
-		public vertex(int ID, edge connected){
+		public Vertex(int ID, edge connected){
 			
 			this.ID = ID;
-			this.connectedTo = connected;
+			this.distance = Integer.MAX_VALUE;
 			
 		}
+
+		@Override
+		public int compareTo(Vertex that) {
+			
+			if(this == that){
+				return 0;
+			}else if(this.ID < that.ID){
+				return -1;
+			}else if(this.ID > that.ID){
+				return 1;
+			}
+			
+			return 0;
+		}
 		
-	}//End of vertex
+	}//End of Vertex
 	
 	
 	static class edge{
 		
-		int vertexID;
-		edge next;
+		int VertexID;
 		int weight;
 		
-		public edge(int vID, edge edge, int value){
+		public edge(int vID,int value){
 			
-			this.vertexID = vID;
-			this.next = edge;
+			this.VertexID = vID;
 			this.weight = value;
 			
 		}
@@ -36,11 +52,11 @@ public class JAEVP4 {
 	
 	public static class graph{
 		
-		vertex[] connectedNodes;
+		Vertex[] connectedNodes;
 		 int sourceVertex;
 		public graph(int size, int srcVertex){			
 			
-			connectedNodes = new vertex[size];
+			connectedNodes = new Vertex[size];
 			
 			for(int x = 0; x < size; x++){
 				createVertex(x, x+1);
@@ -50,13 +66,13 @@ public class JAEVP4 {
 		
 		public void createVertex(int index, int vertID){
 			
-			connectedNodes[index] = new vertex(vertID, null);
+			connectedNodes[index] = new Vertex(vertID, null);
 			
 		}
 		
 		public void createEdge(int vertID, int edgeID, int value){
 			
-			connectedNodes[vertID - 1].connectedTo = new edge(edgeID,connectedNodes[vertID - 1].connectedTo, value);
+			connectedNodes[vertID - 1].connections.add(new edge(edgeID, value));
 			
 			
 		}
@@ -65,18 +81,57 @@ public class JAEVP4 {
 		        System.out.println();
 		        for (int v=0; v < connectedNodes.length; v++) {
 		            System.out.print(connectedNodes[v].ID);
-		            for (edge nbr=connectedNodes[v].connectedTo; nbr != null;nbr=nbr.next) {
+		            for (int i = 0; i < connectedNodes[v].connections.size(); i++) {
 		            	 System.out.println("\n");
-		                System.out.print(" ----> " + connectedNodes[nbr.vertexID -1].ID);
-		                System.out.print("(" + nbr.weight + ")");
+		                System.out.print(" ----> " + connectedNodes[v].connections.get(i).VertexID);
+		                System.out.print("(" + connectedNodes[v].connections.get(i).weight + ")");
 		            }
 		            System.out.println("\n");
 		        }
 		    }
+		 
+		 
+		 public void calcDistance(Vertex src){
+				
+				ArrayList<Vertex> unvisited = new ArrayList();
+				ArrayList<Vertex> visited = new ArrayList();
+				
+				
+				src.distance = 0;
+				unvisited.add(src);
+				
+				PriorityQueue<Vertex> que = new PriorityQueue<Vertex>(); 
+				que.add(src);
+				
+				while(!que.isEmpty()){
+					
+					Vertex temp = que.poll();
+					visited.add(temp);
+					
+					for(int i = 1; i <= connectedNodes.length; i++){
+						if(!visited.contains(i)){
+							if(connectedNodes[i].distance != Integer.MAX_VALUE){
+								
+								int newDistance = connectedNodes[i].distance + connectedNodes[i].connections.get(i).weight;
+								
+								if(newDistance < connectedNodes[i].distance)
+								
+								
+							}
+						}
+					}
+					
+				}
+				
+			}
 		
 	}//End of graph
 
-	
+	public static class Dijkstra{
+		
+		
+		
+	}
 	
 
 	public static void main(String[] args) throws IOException{
