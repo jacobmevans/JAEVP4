@@ -14,7 +14,7 @@ public class JAEVP4 {
 		
 		int ID;													//Used to identify the vertex.
 		ArrayList<Edge> connections = new ArrayList<Edge>();	//Used to store all connecting edges to the vertex.
-		int cost;												//Used to hold the cost of using the vertex. (Dijkstras)
+		double cost;												//Used to hold the cost of using the vertex. (Dijkstras)
 		Vertex previous;										//Used to store the previous vertex. (Used in printing Dijkstras.)
 		int leader;												//Used to keep track of head of unionFind data structure.
 		int numConnected = 0;									//Used to determine which side to union in the union function.
@@ -22,14 +22,14 @@ public class JAEVP4 {
 		public Vertex(int ID, Edge connected){
 			
 			this.ID = ID;
-			this.cost = Integer.MAX_VALUE;
+			this.cost = Double.POSITIVE_INFINITY;
 			
 		}
 
 		@Override
 		public int compareTo(Vertex that) { //Override compareTo function so that it can be used for priority queue of Vertices.
 			
-			return Integer.compare(this.cost, that.cost);
+			return Double.compare(this.cost, that.cost);
 		}
 		
 		
@@ -216,7 +216,7 @@ public class JAEVP4 {
 					 for(int k = 0; k < tempArray.size(); k++){	//Print previous vertices.
 						System.out.print(tempArray.get(k) + " ");
 					 }
-					 System.out.print(v.ID + " " + v.cost);	//Print target and cost to get there.
+					 System.out.print(v.ID + " " + (int)v.cost);	//Print target and cost to get there.
 					 System.out.println();
 			 }
 		 }
@@ -255,7 +255,7 @@ public class JAEVP4 {
 						if(!visited.contains(v)){
 							
 							int weight = e.weight;						//Get the weight of the edge.
-							int newDistance = vertex.cost + weight;		//Calculate the new distance.
+							int newDistance = (int)vertex.cost + weight;		//Calculate the new distance.
 							
 							if(newDistance < v.cost){					//Compare old distance vs. the new distance, if smaller relax it it.
 								que.remove(v);
@@ -318,8 +318,8 @@ public class JAEVP4 {
 	
 		Graph graph = null;	//Create a new graph.
 		int srcVertex;		//Variable used to hold the source vertex.
-		Scanner sc = new Scanner(System.in);
-		//Scanner sc = new Scanner(new File("test.txt"));
+		//Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(new File("test.txt"));
 		String line = "";	//Used to hold the line of input.
 		boolean done = false;
 		
