@@ -1,4 +1,4 @@
-# Shortest Path / Minimal Spanning Tree calculator
+# Shortest Path / Minimal Spanning Tree
 This was the final individual project for CS 3345(Introduction to Data Structures and Alogorithms). Its purpose was to take an undirected, unweighted graph and use both Dijkstra's and Kruskal's. Dijkstra's would be used to construct the shortest path from a given vertex S toi all other vertices. It would also use Kruskal's to constuct a minimal spanning tree for the graph.
 
 The input for the project was given by the first line containing two space-seperated integers, the first of which would be the number of vertices in the graph(starting with 1, not 0), and the second number being the source vertex to use for Dijkstras. Each of the subsequent lines would contain 3 space-seperated integers, the first two being the connected vertex and the last integer being the weight of the connection. (See below example)
